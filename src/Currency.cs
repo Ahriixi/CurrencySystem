@@ -120,7 +120,7 @@
             string output = "";
             for (int i = 0; i < AmountOfCurrencies; i++)
             {
-                output += $"{_currencyNames[i]}: {CurrencyValues[i]}";
+                output += $"{_currencyNames[i]}: {CurrencyValues[i]} ";
             }
 
             return output;
@@ -136,7 +136,7 @@
             string output = "";
             for (int i = AmountOfCurrencies-1; i > -1; i--)
             {
-                output += $"{_currencyNames[i]}: {CurrencyValues[i]}";
+                output += $"{_currencyNames[i]}: {CurrencyValues[i]} ";
             }
 
             return output;
