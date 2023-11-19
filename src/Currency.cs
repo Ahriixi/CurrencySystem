@@ -16,11 +16,29 @@
         /// The factor to convert one currency into another.
         /// </summary>
         private readonly int[] _convertFactors;
+
+        private bool _isDirty = false;
         
         /// <summary>
         /// The amount of currencies.
         /// </summary>
         public int AmountOfCurrencies => CurrencyValues.Length;
+        
+        /// <summary>
+        /// Every currency value in the order of the currency names.
+        /// </summary>
+        public int[] AllValues => CurrencyValues;
+        
+        public int this[int index]
+        {
+            get => CurrencyValues[index];
+            set
+            {
+                CurrencyValues[index] = value;
+                _isDirty = true;
+                SplitUpMoney();
+            } 
+        }
 
         /// <summary>
         /// Saves the currency names and the convert factor
@@ -56,6 +74,7 @@
         {
             _currencyNames = names;
             CurrencyValues = values;
+            _isDirty = true;
 
             if (convertFactors.Length >= AmountOfCurrencies)
             {
@@ -63,13 +82,16 @@
             }
 
             _convertFactors = convertFactors;
+            SplitUpMoney();
         }
 
         /// <summary>
         /// Splits up the money into the different currencies.
         /// </summary>
-        public bool SplitUpMoney()
+        private bool SplitUpMoney()
         {
+            if(!_isDirty) return false;
+            
             if (_currencyNames.Length == 1) return false;
 
             Converter converter = new Converter(_convertFactors);
@@ -78,27 +100,46 @@
         }
 
         /// <summary>
-        /// Sets the amount of money for the base currency. The base currency is the first currency added.
+        /// Sets the amount of money.
         /// </summary>
         /// <param name="amount">The amount to be added</param>
         public void SetBaseCurrencyValue(int amount)
         {
             CurrencyValues[0] = amount;
+            _isDirty = true;
+            SplitUpMoney();
         }
-
+        
+        /// <summary>
+        /// Returns the amount of money. The first currency name added will be the first to mention.
+        /// </summary>
+        /// <returns>Returns the amount of money.</returns>
         public override string ToString()
         {
             SplitUpMoney();
-
-            string toReturn = "";
-            
+            string output = "";
             for (int i = 0; i < AmountOfCurrencies; i++)
             {
-                toReturn += $"{CurrencyValues[i]} {_currencyNames[i]} ";
+                output += $"{_currencyNames[i]}: {CurrencyValues[i]}";
             }
-            
 
-            return toReturn;
+            return output;
+        }
+        
+        /// <summary>
+        /// Returns the amount of money. The last currency name added will be the first to mention.
+        /// </summary>
+        /// <returns>Returns the amount of money.</returns>
+        public string ToStringReversed()
+        {
+            SplitUpMoney();
+            string output = "";
+            for (int i = AmountOfCurrencies-1; i > -1; i--)
+            {
+                output += $"{_currencyNames[i]}: {CurrencyValues[i]}";
+            }
+
+            return output;
         }
     }
 }
