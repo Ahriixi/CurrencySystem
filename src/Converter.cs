@@ -40,9 +40,9 @@
             
             if (CheckIfThereIsOnlyOneCurrency(currency)) return false;
             
-            int[] factorsToUse = new int[_convertFactors.Length];
+            int[] factorsToUse = _convertFactors;
 
-            if (_convertFactors.Length == 1)
+            if (factorsToUse.Length == 1)
             {
                 factorsToUse = new int[currency.AmountOfCurrencies];
                 FillArrayWithOneValue(_convertFactors[0], factorsToUse);
