@@ -57,7 +57,7 @@
 
             if (convertFactors.Length >= AmountOfCurrencies)
             {
-                throw new InvalidOperationException("Too many factors.");
+                throw new InvalidOperationException($"{nameof(convertFactors) } contains more elements than {nameof(names)}");
             }
 
             for (int i = 0; i < _currencyNames.Length; i++)
@@ -77,12 +77,18 @@
         public Currency(string[] names, int[] values, params int[] convertFactors)
         {
             _currencyNames = names;
+            if (_currencyNames.Length != values.Length)
+            {
+                throw new InvalidOperationException($"{nameof(values)} contains more elements than {nameof(names)}" );
+            }
+                
+            
             CurrencyValues = values;
             _isDirty = true;
 
             if (convertFactors.Length >= AmountOfCurrencies)
             {
-                throw new InvalidOperationException("Too many factors.");
+                throw new InvalidOperationException($"{nameof(convertFactors) } contains more elements than {nameof(names)}");
             }
 
             _convertFactors = convertFactors;
