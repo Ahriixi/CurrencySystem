@@ -20,15 +20,19 @@
         private bool _isDirty = false;
         
         /// <summary>
-        /// The amount of currencies.
+        /// Gets the number of currency names contained in the Currency object.
         /// </summary>
         public int AmountOfCurrencies => CurrencyValues.Length;
         
         /// <summary>
-        /// Every currency value in the order of the currency names.
+        /// Gets all values currently contained in the Currency object.
         /// </summary>
         public int[] AllValues => CurrencyValues;
         
+        /// <summary>
+        /// Gets or sets the value associated with the index of the currency names.
+        /// </summary>
+        /// <param name="index">The index of the value to get or set.</param>
         public int this[int index]
         {
             get => CurrencyValues[index];
@@ -100,7 +104,7 @@
         }
 
         /// <summary>
-        /// Sets the amount of money.
+        /// Sets the first currency to a specific value.
         /// </summary>
         /// <param name="amount">The amount to be added</param>
         public void SetBaseCurrencyValue(int amount)
@@ -111,9 +115,9 @@
         }
         
         /// <summary>
-        /// Returns the amount of money. The first currency name added will be the first to mention.
+        /// Converts the values of the currencies to its string representation. It lists it in the order of given names.
         /// </summary>
-        /// <returns>Returns the amount of money.</returns>
+        /// <returns>The string representation of the values and the currencies of this instance.</returns>
         public override string ToString()
         {
             SplitUpMoney();
@@ -127,9 +131,10 @@
         }
         
         /// <summary>
-        /// Returns the amount of money. The last currency name added will be the first to mention.
+        /// Converts the values of the currencies to its string representation.
+        /// It lists it in the reversed order of the given names.
         /// </summary>
-        /// <returns>Returns the amount of money.</returns>
+        /// <returns>The string representation of the values and the currencies of this instance.</returns>
         public string ToStringReversed()
         {
             SplitUpMoney();
