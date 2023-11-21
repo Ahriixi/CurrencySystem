@@ -16,7 +16,7 @@ Currency currency = new Currency(currencyNames, conversionFactors);
 
 currency.SetBaseCurrencyValue(8353);
 
-string currencyString = currency.ToStringReversed(); // "83 Gold 53 Silver 0 Copper"
+string currencyString = currency.ToStringReversed(); // "0 Gold 83 Silver 53 Copper"
 ```
 
 ## Get started
